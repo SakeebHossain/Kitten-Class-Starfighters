@@ -8,15 +8,20 @@ public class MoveMenu : MonoBehaviour {
 	public GameObject moveMenu;
 	public Button attackButton;
 	public Button jumpButton;
+	public GameObject cancelMoveMenu;
+	public Button cancelButton;
 
 	// Use this for initialization
 	void Start () {
 
-		moveMenu.SetActive(false);
 		jumpButton.onClick.AddListener (selectJump);
+		attackButton.onClick.AddListener (selectAttack);
+		cancelButton.onClick.AddListener (show);
+		moveMenu.SetActive(false);
+		cancelMoveMenu.SetActive(false);
 		
 	}
-	
+
 	// Update is called once per frame
 	public void Update () {
 		
@@ -25,7 +30,7 @@ public class MoveMenu : MonoBehaviour {
 	public void show() {
 
 		moveMenu.SetActive(true);
-		PlayerController.state = "JUMP";
+		cancelMoveMenu.SetActive(false);
 		
 	}
 
@@ -35,17 +40,20 @@ public class MoveMenu : MonoBehaviour {
 		
 	}
 
+
 	public void selectJump() {
 
-		moveMenu.SetActive(false);
+		hide ();
+		cancelMoveMenu.SetActive(true);
+		PlayerController.state = "JUMP";
 
-
-		
 	}
 
 	public void selectAttack() {
-
-
 		
+		hide ();
+		cancelMoveMenu.SetActive(true);
+		PlayerController.state = "ATTACK";
+
 	}
 }
